@@ -387,6 +387,36 @@ app.post('/api/test-notification', authMiddleware, async (req, res) => {
     }
 });
 
+// Add root route (add this before other routes)
+app.get('/', (req, res) => {
+    res.json({ 
+        message: 'Todo API is running',
+        endpoints: {
+            auth: [
+                '/api/signup',
+                '/api/login'
+            ],
+            tasks: [
+                '/api/tasks',
+                '/api/subscribe',
+                '/api/check-notifications',
+                '/api/test-notification'
+            ]
+        }
+    });
+});
+
+// Add error handling middleware (add this at the end before app.listen)
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ error: 'Something went wrong!' });
+});
+
+// Handle 404 routes (add this at the end before app.listen)
+app.use((req, res) => {
+    res.status(404).json({ error: 'Route not found' });
+});
+
 // Monitor MongoDB connection
 mongoose.connection.on('disconnected', () => {
     console.log('MongoDB disconnected');
