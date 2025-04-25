@@ -7,11 +7,13 @@ const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const webpush = require('web-push');
 const cron = require('node-cron');
+const path = require('path');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '../Frontend')));
 
 // Enable mongoose debug mode
 mongoose.set('debug', true);
@@ -387,8 +389,13 @@ app.post('/api/test-notification', authMiddleware, async (req, res) => {
     }
 });
 
-// Add root route (add this before other routes)
+// Update root route
 app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../Frontend/login.html'));
+});
+
+// Add API documentation route
+app.get('/api', (req, res) => {
     res.json({ 
         message: 'Todo API is running',
         endpoints: {
