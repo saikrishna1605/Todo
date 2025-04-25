@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlanPal - Daily Task Organizer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="notifications.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+</head>
+<body>
+    <header>
+        <h1 class="site-title">PLANPAL : DAILY TASK ORGANIZER</h1>
+        <div class="header-controls">
+            <button id="themeToggle" class="theme-toggle" title="Toggle theme">
+                <i class="fas fa-sun"></i>
+            </button>
+            <button id="logoutBtn" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="main-nav">
+            <button class="nav-btn active" data-view="tasks">Tasks</button>
+            <button class="nav-btn" data-view="completed">Completed</button>
+            <button class="nav-btn" data-view="stats">Stats</button>
+        </nav>
+        
+        <!-- Task Form Section -->
+        <div class="task-form">
+            <input type="text" id="taskTitle" placeholder="Task Title" required>
+            <textarea id="taskDescription" placeholder="Task Description"></textarea>
+            <div class="time-inputs">
+                <input type="datetime-local" id="taskTime" required>
+            </div>
+            <button onclick="addTask()" class="add-task-btn">Add Task</button>
+        </div>
+
+        <!-- Tasks Display Section -->
+        <div class="tasks-view" id="tasksView">
+            <h2>Tasks To Do</h2>
+            <div class="tasks-scroll" id="activeTasks"></div>
+        </div>
+
+        <!-- Completed Tasks Section -->
+        <div class="completed-view hidden" id="completedView">
+            <h2>Completed Tasks</h2>
+            <div class="tasks-scroll" id="completedTasks"></div>
+        </div>
+
+        <!-- Statistics Section -->
+        <div class="stats-view hidden" id="statsView">
+            <h2>Statistics</h2>
+            <div class="stats-container">
+                <p>Completion Rate: <span id="completionRate">0%</span></p>
+                <p>Tasks Deleted from To-Do: <span id="todoDeleted">0</span></p>
+                <p>Tasks Deleted from Completed: <span id="completedDeleted">0</span></p>
+                
+                <div class="chart-container">
+                    <h3>Day Tracker</h3>
+                    <div class="gantt-wrapper">
+                        <canvas id="ganttChart" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            checkAuth();
+            initTheme();
+            initNotifications();
+            const themeToggle = document.getElementById('themeToggle');
+            themeToggle.addEventListener('click', toggleTheme);
+            
+            document.getElementById('logoutBtn').onclick = function() {
+                localStorage.clear();
+                window.location.replace('login.html');
+            };
+        };
+    </script>
+    <script src="auth.js"></script>
+    <script src="theme.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

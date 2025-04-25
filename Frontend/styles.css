@@ -1,0 +1,241 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --card-bg: #ffffff;
+    --border-color: #ddd;
+    --header-bg: #f8f9fa;
+    --task-hover: #f5f5f5;
+    --input-bg: #ffffff;
+    --input-border: #ddd;
+    --button-bg: #4CAF50;
+    --button-text: #ffffff;
+    --stats-bg: #f5f5f5;
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --card-bg: #2d2d2d;
+    --border-color: #404040;
+    --header-bg: #2d2d2d;
+    --task-hover: #353535;
+    --input-bg: #3d3d3d;
+    --input-border: #505050;
+    --button-bg: #45a049;
+    --button-text: #ffffff;
+    --stats-bg: #2d2d2d;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: var(--card-bg);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input, textarea {
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    transition: all 0.3s ease;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+.tasks-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.task-item {
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.task-item button {
+    margin-left: 10px;
+}
+
+.statistics {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: var(--stats-bg);
+    color: var(--text-color);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.header-controls {
+    display: flex;
+    gap: 1rem;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+.theme-toggle i {
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .theme-toggle i.fa-moon {
+    color: #f1c40f;
+}
+
+[data-theme="light"] .theme-toggle i.fa-sun {
+    color: #f39c12;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.nav-btn {
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-btn.active {
+    border-bottom-color: #4CAF50;
+    color: #4CAF50;
+}
+
+header {
+    background-color: var(--header-bg);
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+.gantt-chart {
+    position: relative;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: var(--card-bg);
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+.gantt-timeline {
+    display: grid;
+    grid-template-columns: repeat(24, minmax(60px, 1fr));
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 10px;
+}
+
+.gantt-hour {
+    text-align: center;
+    padding: 5px;
+    border-right: 1px solid var(--border-color);
+    color: var(--text-color);
+    font-size: 0.8rem;
+}
+
+.gantt-tasks {
+    position: relative;
+    min-height: 100px;
+}
+
+.gantt-task-bar {
+    position: absolute;
+    height: 30px;
+    background-color: #4CAF50;
+    border-radius: 3px;
+    padding: 5px;
+    color: white;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.gantt-task-bar:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+.gantt-task-completed {
+    background-color: #666;
+}
+
+.stats-container canvas {
+    min-height: 400px;
+    width: 100%;
+    margin-top: 20px;
+    background-color: var(--card-bg);
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.chart-container {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--card-bg);
+    min-width: 300px;
+    min-height: 350px;
+}
+
+.gantt-wrapper {
+    position: relative;
+    height: 400px;
+    margin-top: 20px;
+}
+
+#ganttChart {
+    width: 100% !important;
+    height: 350px !important;
+    display: block;
+    background: var(--card-bg);
+}
